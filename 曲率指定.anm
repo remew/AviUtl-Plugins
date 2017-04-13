@@ -1,0 +1,54 @@
+﻿--track0:曲率, -1, 1, 0, 0.01
+--track1:分割数, 0, 100, 16, 1
+
+--圧倒的闇コード
+
+--曲率をm、分割数をnとする
+m = obj.track0
+n = obj.track1
+
+--曲率によって角度を変換
+deg = m * 180.0
+if(deg == 0)then
+  deg = 0.0001
+end
+
+--ポリゴン計算に必要な事前座標を計算
+rad = math.rad(deg)
+rad_n = (math.pi + rad) / 2
+
+r = (obj.w / 2) / math.sin(rad / 2)
+cz = obj.cz - (obj.w / 2) / math.tan(rad / 2)
+cx = obj.cx
+
+--あとはポリゴンの座標を計算するだけ＾ｑ＾
+for i = 0, n - 1 do
+  u0 = obj.w / n * i
+  v0 = 0
+  u1 = obj.w / n * (i + 1)
+  v1 = 0
+  u2 = obj.w / n * (i + 1)
+  v2 = obj.h
+  u3 = obj.w / n * i
+  v3 = obj.h
+  
+  x0 = r * math.cos(rad_n - (rad / n * i)) + cx
+  y0 = obj.oy - obj.h / 2
+  z0 = r * math.sin(rad_n - (rad / n * i)) + cz
+  
+  x1 = r * math.cos(rad_n - (rad / n * (i + 1))) + cx
+  y1 = obj.oy - obj.h / 2
+  z1 = r * math.sin(rad_n - (rad / n * (i + 1))) + cz
+  
+  x2 = r * math.cos(rad_n - (rad / n * (i + 1))) + cx
+  y2 = obj.oy + obj.h / 2
+  z2 = r * math.sin(rad_n - (rad / n * (i + 1))) + cz
+  
+  x3 = r * math.cos(rad_n - (rad / n * i)) + cx
+  y3 = obj.oy + obj.h / 2
+  z3 = r * math.sin(rad_n - (rad / n * i)) + cz
+  
+  --圧倒的描画
+  obj.drawpoly(x0,y0,z0,x1,y1,z1,x2,y2,z2,x3,y3,z3,u0,v0,u1,v1,u2,v2,u3,v3,1.0)
+end
+

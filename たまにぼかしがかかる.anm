@@ -1,0 +1,17 @@
+--track0:•p“x, 0, 100, 10, 1
+--track1:‚Ú‚©‚µ”ÍˆÍ, 0, 1000, 5, 1
+--track2:‚Ú‚©‚µc‰¡”ä, -100, 100, 0, 0.1
+
+obj.effect()
+
+local f = obj.frame
+
+if( obj.rand(0, 100, 1, f) > 100 - obj.track0 ) then
+	b_t = obj.framerate / 10
+end
+
+if( b_t > 0 ) then
+	obj.effect("‚Ú‚©‚µ", "”ÍˆÍ", obj.track1, "c‰¡”ä", obj.track2)
+end
+
+b_t = b_t - 1
